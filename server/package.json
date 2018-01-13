@@ -1,0 +1,43 @@
+{
+  "name": "politicians-promises",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "develop": "supervisor app.js",
+    "start": "nodemon --harmony app.js",
+    "test": "mocha --harmony"
+  },
+  "dependencies": {
+    "atob": "^2.0.3",
+    "axios": "^0.14.0",
+    "co-monk": "^1.0.0",
+    "co-views": "^0.3.0",
+    "kcors": "^2.2.1",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-compress": "^2.0.0",
+    "koa-logger": "^3.0.0",
+    "koa-passport": "^4.0.1",
+    "koa-route": "^2.4.0",
+    "koa-router": "^7.2.0",
+    "koa-static": "^3.0.0",
+    "lodash": "^4.16.4",
+    "monk": "^3.0.5",
+    "nconf": "^0.8.4",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "raccoon": "git://github.com/guymorita/recommendationRaccoon.git#be075f3de8235ed30aaeac79b83d40a1d7f0a6f8",
+    "redis": "^2.6.2",
+    "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.10.0",
+    "eslint-plugin-json": "^1.2.0",
+    "mocha": "^2.1.0",
+    "supertest": "^2.0.0"
+  },
+  "engines": {
+    "node": "6.4.0",
+    "npm": "3.10.7"
+  }
+}
