@@ -12,6 +12,7 @@
     "axios": "^0.14.0",
     "co-monk": "^1.0.0",
     "co-views": "^0.3.0",
+    "jsonwebtoken": "^8.1.0",
     "kcors": "^2.2.1",
     "koa": "^2.2.0",
     "koa-bodyparser": "^4.2.0",
@@ -26,6 +27,7 @@
     "nconf": "^0.8.4",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
+    "passport-jwt": "^3.0.1",
     "raccoon": "git://github.com/guymorita/recommendationRaccoon.git#be075f3de8235ed30aaeac79b83d40a1d7f0a6f8",
     "redis": "^2.6.2",
     "swig": "^1.4.2"

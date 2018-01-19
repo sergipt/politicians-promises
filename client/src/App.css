@@ -1,0 +1,106 @@
+#root {
+  min-height: 100vh; }
+
+.App {
+  position: relative;
+  background: linear-gradient(to right, #00d2ff, #3a7bd5);
+  min-height: 100vh; }
+  .App .ui.menu .header.active.item {
+    background: none;
+    color: rgba(255, 255, 255, 0.9); }
+  .App .ui.menu .ui.mini.image {
+    margin-right: 1.5em; }
+  .App .ui.menu .login .item {
+    padding: 24px; }
+  .App .ui.menu .logout .item:before {
+    content: none; }
+  .App .main {
+    padding-top: 61px; }
+  .App .ui.text.container {
+    margin: 50px 0;
+    max-width: 800px !important; }
+  .App .segment {
+    margin: 5em 0em 0em;
+    padding: 5em 0em; }
+  .App .lists .list-item {
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: .5s; }
+    .App .lists .list-item:hover .card {
+      box-shadow: rgba(70, 70, 70, 0.5) 2px 2px 10px 4px; }
+    .App .lists .list-item .card {
+      width: 100%;
+      padding: 20px;
+      transition: .3s; }
+  .App .promises-list > h1, .App .promises-list > p {
+    color: white; }
+  .App .promises-list .add-promise {
+    margin-bottom: 20px; }
+    .App .promises-list .add-promise .ui.card {
+      width: 100%; }
+      .App .promises-list .add-promise .ui.card .content {
+        display: flex; }
+        .App .promises-list .add-promise .ui.card .content .ui.input {
+          margin-right: 15px;
+          width: 100%; }
+        .App .promises-list .add-promise .ui.card .content .react-datepicker-wrapper {
+          margin-right: 15px; }
+          .App .promises-list .add-promise .ui.card .content .react-datepicker-wrapper .react-datepicker__input-container input {
+            margin: 0;
+            max-width: 100%;
+            -webkit-box-flex: 1;
+            -ms-flex: 1 0 auto;
+            flex: 1 0 auto;
+            outline: 0;
+            -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+            text-align: left;
+            line-height: 1.21428571em;
+            font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            padding: .67857143em 1em;
+            background: #fff;
+            border: 1px solid rgba(34, 36, 38, 0.15);
+            color: rgba(0, 0, 0, 0.87);
+            border-radius: .28571429rem;
+            -webkit-transition: box-shadow .1s ease,border-color .1s ease;
+            transition: box-shadow .1s ease,border-color .1s ease;
+            box-shadow: none; }
+        .App .promises-list .add-promise .ui.card .content .add-promise-btn {
+          float: right; }
+  .App .promises-list .promise-list-item .ui.card {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    display: block;
+    min-height: 170px; }
+    .App .promises-list .promise-list-item .ui.card .header {
+      max-width: calc(100% - 240px); }
+    .App .promises-list .promise-list-item .ui.card .buttons {
+      position: absolute;
+      bottom: 20px; }
+      .App .promises-list .promise-list-item .ui.card .buttons .button i.black.icon {
+        color: white !important; }
+    .App .promises-list .promise-list-item .ui.card svg {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 150px; }
+  .App .footer {
+    padding: 50px 0; }
+    .App .footer .ui.mini.image {
+      width: 100px;
+      margin-bottom: 20px; }
+
+.login-modal.ui.modal .social-login-button {
+  height: 50px;
+  width: 100%;
+  border: none;
+  color: white;
+  font-size: 16px;
+  margin-bottom: 15px; }
+  .login-modal.ui.modal .social-login-button svg {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px 0 -15px; }
+  .login-modal.ui.modal .social-login-button.facebook-login-button {
+    background: #354E85;
+    border-radius: 4px; }

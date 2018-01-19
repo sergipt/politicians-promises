@@ -1,0 +1,42 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.17.1",
+    "d3": "^4.12.2",
+    "d3-scale": "^1.0.7",
+    "d3-shape": "^1.2.0",
+    "install": "^0.10.2",
+    "moment": "^2.20.1",
+    "node-sass-chokidar": "^0.0.3",
+    "npm": "^5.6.0",
+    "npm-run-all": "^4.1.2",
+    "react": "^16.2.0",
+    "react-d3-components": "^0.8.0",
+    "react-datepicker": "^1.0.4",
+    "react-dom": "^16.2.0",
+    "react-facebook-login": "^3.7.2",
+    "react-fontawesome": "^1.6.1",
+    "react-icons": "^2.2.7",
+    "react-intl": "^2.4.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.17",
+    "react-svg-donut-chart": "^1.0.0",
+    "react-svg-piechart": "^2.0.2",
+    "redux": "^3.7.2",
+    "semantic-ui-react": "^0.77.2",
+    "uninstall": "0.0.0"
+  },
+  "scripts": {
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}

@@ -1,0 +1,157 @@
+#root{min-height: 100vh;}
+.App {
+  position: relative;
+  background: linear-gradient(to right, rgb(0, 210, 255), rgb(58, 123, 213));
+  min-height: 100vh;
+  .ui.menu {
+    .header.active.item {
+      background: none;
+      color: rgba(255,255,255,.9);
+    }
+    .ui.mini.image {
+      margin-right: 1.5em;
+    }
+    .login{
+      .item{
+        padding: 24px;
+      }
+    }
+    .logout{
+      .item:before {
+        content: none;
+      }
+    }
+  }
+  .main{
+    padding-top: 61px;
+  }
+  .ui.text.container {
+    margin: 50px 0;
+    max-width: 800px!important;
+  }
+  .segment {
+    margin: 5em 0em 0em;
+    padding: 5em 0em;
+  }
+  .lists {
+    .list-item {
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: .5s;
+      &:hover{
+        .card {
+          box-shadow: rgba(70, 70, 70, 0.5) 2px 2px 10px 4px;
+        }
+      }
+      .card {
+        // box-sizing: border-box;
+        width: 100%;
+        padding: 20px;
+        transition: .3s;
+      }
+    }
+  }
+  .promises-list {
+    > h1, > p {color: white;}
+    .add-promise{
+      margin-bottom: 20px;
+      .ui.card{
+        width: 100%;
+        .content {
+          display: flex;
+          .ui.input{ 
+            margin-right: 15px;
+            width: 100%;
+          }
+          .react-datepicker-wrapper{
+            margin-right: 15px;
+            .react-datepicker__input-container{
+              input{
+                margin: 0;
+                max-width: 100%;
+                -webkit-box-flex: 1;
+                -ms-flex: 1 0 auto;
+                flex: 1 0 auto;
+                outline: 0;
+                -webkit-tap-highlight-color: rgba(255,255,255,0);
+                text-align: left;
+                line-height: 1.21428571em;
+                font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+                padding: .67857143em 1em;
+                background: #fff;
+                border: 1px solid rgba(34,36,38,.15);
+                color: rgba(0,0,0,.87);
+                border-radius: .28571429rem;
+                -webkit-transition: box-shadow .1s ease,border-color .1s ease;
+                transition: box-shadow .1s ease,border-color .1s ease;
+                box-shadow: none;
+              }
+            }
+          }
+          .add-promise-btn{
+            float: right;
+          }
+        }
+      }
+    }
+    .promise-list-item {
+      .ui.card {
+        position: relative;
+        // box-sizing: border-box;
+        width: 100%;
+        // padding: 20px;
+        margin-bottom: 20px;
+        display: block;
+        min-height: 170px;
+        .header{
+          max-width: calc(100% - 240px);
+        }
+        .buttons{
+          position: absolute;
+          bottom: 20px;
+          .button{
+            i.black.icon {
+              color: white!important;
+            }
+          }
+        }
+        svg{
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          width: 150px;
+        }
+      }
+    }
+  }
+  .footer{
+    // position: sticky;
+    // bottom: 0;
+    padding: 50px 0;
+    .ui.mini.image{
+      width: 100px;
+      margin-bottom: 20px;
+    }
+  }
+}
+.login-modal.ui.modal {
+  .social-login-button {
+    height: 50px;
+    width:  100%;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin-bottom: 15px;
+    svg {
+      width: 30px;
+      height: 30px;
+      margin: 0 10px 0 -15px;
+    }
+    &.google-login-button {
+    }
+    &.facebook-login-button{
+      background: #354E85;
+      border-radius: 4px;
+    }
+  }
+}

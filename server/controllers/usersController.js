@@ -1,86 +1,61 @@
 'use strict';
 const nconf = require('../configuration.js');
+const config = require('../config.js');
 const monk = require('monk');
-const atob = require('atob');
+const axios = require('axios');
 const db = monk(nconf.get('MONGODB_URL') || 'localhost/polipro');
 const filterProps = require('../services/utils').filterProps;
 const raccoon = require('../services/raccoon');
-const passport = require('passport');
-const FacebookStrategy = require('passport-facebook').Strategy;
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const User = db.get('users');
 
-app.use(passport.initialize());
-passport.use(new FacebookStrategy({
-    clientID: '166886444041133',
-    clientSecret: '28c758a77d1b3d6cf88f9a53fe55d8f1',
-    callbackURL: "http://localhost:3006/auth/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-
-
-    User.findOrCreate(..., function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
-
-    .then(user => done(null, user))
-    .catch(done)
+const userDB = async (userData) => {
+  let user = await User.findOne({facebook_id: userData.facebook_id});
+  // console.log('findOne:', user);
+  if (!user) {
+    try {
+      user = await User.insert(userData);
+      // console.log('new user:', user);
+      return user.accessToken;
+    } catch (e) { console.error('User.insert', e); }
+  } else {
+    try {
+      await User.update({facebook_id: userData.facebook_id}, {'name': userData.name, 'email': userData.email, 'accessToken': userData.accessToken, 'profile_picture': userData.profile_picture});
+      user = await User.findOne({facebook_id: userData.facebook_id});
+      // console.log('update user:', user);
+      return user.accessToken;
+    } catch(e) { console.error('User.update', e); }
   }
-));
+}
 
-passport.use(new GoogleStrategy({
-  consumerKey: '1006414047628-c0nojgcen4mkc0s2onokisg4e5r4omv2.apps.googleusercontent.com',
-  consumerSecret: 'wr70u2MU-OjO9PkgBPLpmZfa',
-  callbackURL: "http://localhost:3006/auth/google/callback"
-  },
-  function(token, tokenSecret, profile, done) {
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return done(err, user);
-      });
-  }
-));
-
-module.exports.facebookAuth = async (ctx, next) => {
-  console.log('facebookAuth:', ctx);
-  if ('GET' != ctx.method) return await next();
-  passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' });
+module.exports.authFacebook = async (ctx, next) => {
+  if ('POST' != ctx.method) return await next();
+  let facebookUserData = {'name': ctx.request.body.name, 'email': ctx.request.body.email, 'facebook_id': ctx.request.body.id, 'accessToken': ctx.request.body.accessToken, 'profile_picture': ctx.request.body.picture.data.url};
+  // console.log('authFacebook', facebookUserData.id);
+  let authResult = await axios.get(config.facebook.validateUrl, {
+    headers: {
+      'Authorization': 'Bearer ' + facebookUserData.accessToken,
+    }
+  });
+  // console.log('authResult', authResult.data);
+  if (authResult.data.id == facebookUserData.facebook_id) {
+    await userDB(facebookUserData);
+    ctx.status = 200;
+    ctx.body = JSON.stringify({'accessToken': facebookUserData.accessToken});
+  } else ctx.status = 404;
 };
 
-module.exports.facebookCallback = async (ctx, next) => {
-  if ('GET' != ctx.method) return await next();
-  passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' });
-};
-
-module.exports.googleAuth = async (ctx, next) => {
-  if ('GET' != ctx.method) return await next();
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] });
-};
-
-module.exports.googleCallback = async (ctx, next) => {
-  if ('GET' != ctx.method) return await next();
-  passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) { res.redirect('/'); };
+module.exports.authGoogle = async (ctx, next) => {
+  if ('POST' != ctx.method) return await next();
+  ctx.status = 404;
 };
 
 module.exports.login = async (ctx, next) => {
   if ('GET' != ctx.method) return await next();
-
-  // const user = ctx.request.body;
-  // // user = filterProps(user, ['username', 'token']);
-
-  // let userDB = await User.findOne({usernme: user.username});
-
-  // if (!userDB) {
-  //   console.log('new user:', user);
-  //   await User.insert(user);
-  // } else {
-  //   console.log('user:', user);
-  //   await User.update({username: user.username}, {'token': user.token});
-  // }
-  // ctx.body = user;
-  ctx.status = 201;
-};
+  console.log('login', ctx.user);
+  ctx.body = ctx.user;
+  ctx.status = 200;
+}
 
 module.exports.logout = async (ctx, next) => {
   if ('GET' != ctx.method) return await next();
@@ -89,13 +64,6 @@ module.exports.logout = async (ctx, next) => {
 
 module.exports.me = async (ctx, next) => {
   if ('GET' != ctx.method) return await next();
-  // retrieve the current user data
-
   ctx.body = ctx.user;
 };
 
-module.exports.myVotes = async (ctx, next) => {
-  if ('GET' != ctx.method) return await next();
-  // list my votes
-
-};

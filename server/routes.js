@@ -5,6 +5,9 @@ const promisesController = require('./controllers/promisesController');
 
 const router = require('koa-router')();
 
+
+const passport = require('./passport');
+
 const authorize = async (ctx, next) => {
   if (!ctx.user) {
     ctx.status = 401;
@@ -18,23 +21,21 @@ const routes = function (app) {
   router.post('/lists', authorize, promisesController.createList);
   router.post('/list/:id/delete', authorize, promisesController.deleteList);
   router.post('/list/:id/promise', authorize, promisesController.createPromise);
-  router.get('/list/:id/promises', authorize, promisesController.showPromises);
+  router.get('/list/:id/promises', promisesController.showListPromises);
   router.post('/promise/:id/delete', authorize, promisesController.deletePromise);
   router.get('/lists', promisesController.showAllLists);
-  router.get('/list/:id', promisesController.showList);
+  router.get('/list/:id', promisesController.showListDetils);
+  router.get('/votes', authorize, promisesController.getMyVotes);
   router.post('/promise/:id/vote', authorize, promisesController.votePromise);
+  router.post('/promise/:id/unvote', authorize, promisesController.unvotePromise);
   router.post('/promise/:id', authorize, promisesController.showPromise);
   router.get('/search', promisesController.search);
 
-  router.get('/auth/facebook', usersController.facebookAuth);
-  router.get('/auth/facebook/callback', usersController.facebookCallback);
-  router.get('/auth/google', usersController.googleAuth);
-  router.get('/auth/google/callback', usersController.googleCallback);
-  
-  router.get('/login', usersController.login);
-  app.get('/logout', usersController.logout);
+  router.get('/login', authorize, usersController.login);
+  router.post('/auth/facebook', usersController.authFacebook);
+  router.post('/auth/google', usersController.authGoogle);
+  router.get('/logout', usersController.logout);
   router.get('/me', authorize, usersController.me);
-  router.get('/me/votes', authorize, usersController.myVotes);
 
   router.options('/', options);
   router.trace('/', trace);

@@ -3,15 +3,17 @@ const compress = require('koa-compress');
 const logger = require('koa-logger');
 const serve = require('koa-static');
 const koa = require('koa');
+const bodyParser = require('koa-bodyparser');
 const cors = require('kcors');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 const app = module.exports = new koa();
 const routes = require('./routes.js');
-const bodyParser = require('koa-bodyparser');
+const config = require('./config.js');
 
 const monk = require('monk');
 const nconf = require('./configuration.js');
-const db = monk(nconf.get('MONGODB_URL') || 'localhost/movied');
+const db = monk(nconf.get('MONGODB_URL') || 'localhost/polipro');
 const User = db.get('users');
 
 // Logger
@@ -38,12 +40,11 @@ app.use(async (ctx, next) => {
 });
 
 app.use(async (ctx, next) => {
-  // let authorization = ctx.headers.authorization;
-  // console.log(authorization);
-  // if (!authorization) return await next();
-  // let token = authorization.split(' ')[1];
-  // ctx.user = await User.findOne({token:token});
-  ctx.user = {user: 'admin'};
+  let authorization = ctx.headers.authorization;
+  if (!authorization || authorization.split(' ')[0] != 'Bearer') return await next();
+  ctx.token = authorization.split(' ')[1];
+  // console.log('authorization accessToken', ctx.token);
+  ctx.user = await User.findOne({accessToken: ctx.token});
 
   return await next();
 });
