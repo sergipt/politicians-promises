@@ -6,8 +6,8 @@ Politicians promises is a web app where you can introduce promises made by polit
 
 ## Features
 
-* View list of politicians
-* Add promises on politicians
+* View list of politicians and statistics
+* Add promises
 * Vote promises
 
 ## Usage
