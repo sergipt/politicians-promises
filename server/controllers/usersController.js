@@ -10,7 +10,7 @@ const raccoon = require('../services/raccoon');
 const User = db.get('users');
 
 const userDB = async (userData) => {
-  let user = await User.findOne({facebook_id: userData.facebook_id});
+  let user = await User.findOne({email: userData.email});
   // console.log('findOne:', user);
   if (!user) {
     try {
