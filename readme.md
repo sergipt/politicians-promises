@@ -1,4 +1,4 @@
-# BLOCKLET
+# POLITICIANS PROMISES
 
 Politicians promises is a web app where you can introduce promises made by politicians and others can vote if they believe they have complied or not.
 
